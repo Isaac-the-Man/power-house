@@ -34,10 +34,21 @@ const vuexStore = new Vuex.Store({
             houses: null,
             students: null,
             awards: null,
-            criteria: null
+            criteria: null,
+            admins: null
         }
     },
     getters: {
+        authStatus(state, getters) {
+            if (getters.isDataLoaded && state.database.auth) {
+                return state.data.admins[firebase.auth().currentUser.uid];
+            } else {
+                return {
+                    name: 'Visitor',
+                    perm: 'None'
+                };
+            }
+        },
         populatedStudents(state, getters) {
             if (getters.isDataLoaded) {
                 const populated = utils.methods.clone(state.data.students);
@@ -160,10 +171,6 @@ const vuexStore = new Vuex.Store({
             }
         },
         isDataLoaded(state) {
-            console.log(state.data.houses ? 'houses loaded' : 'houses not loaded');
-            console.log(state.data.students ? 'students loaded' : 'students not loaded');
-            console.log(state.data.awards ? 'awards loaded' : 'awards not loaded');
-            console.log(state.data.criteria ? 'criteria loaded' : 'criteria not loaded');
             let flag = true;
             for (let item of Object.values(state.data)) {
                 if (item === null || item === undefined) {
@@ -217,6 +224,9 @@ database.ref('/students').on('value', (data) => {
 });
 database.ref('/criteria').on('value', (data) => {
     vuexStore.state.data.criteria = data.val();
+});
+database.ref('/admins').on('value', (data) => {
+    vuexStore.state.data.admins = data.val();
 });
 
 // export

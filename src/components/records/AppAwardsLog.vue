@@ -85,7 +85,7 @@
         },
         computed: {
             isAuthed() {
-                return this.$store.state.database.auth;
+                return this.$store.getters.authStatus.perm === 'Admin';
             },
             fields() {
                 const baseFields = [

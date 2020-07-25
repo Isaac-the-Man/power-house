@@ -36,7 +36,7 @@
         },
         computed: {
             isAuthed() {
-                return this.$store.state.database.auth;
+                return this.$store.getters.authStatus.perm === 'Admin';
             },
             criteriaArray() {
                 return this.$store.getters.criteriaArray;

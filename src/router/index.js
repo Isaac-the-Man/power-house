@@ -56,7 +56,7 @@ const routes = [
         name: 'Admin',
         component: Admin,
         beforeEnter(to, from, next) {
-            if (Store.state.database.auth) {
+            if (Store.getters.authStatus.perm === 'Admin') {
                 next();
             } else {
                 next('/login');

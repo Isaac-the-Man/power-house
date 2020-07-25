@@ -8,12 +8,14 @@
             <b-navbar-nav>
                 <b-nav-item exact-active-class="active" exact to="/">Dashboard</b-nav-item>
                 <b-nav-item-dropdown right text="Houses">
-                    <b-dropdown-item exact-active-class="active" exact v-for="(house, i) in housesArray" :key="i" :to="'/houses/' + house.key">{{ house.name }}</b-dropdown-item>
+                    <b-dropdown-item exact-active-class="active" exact v-for="(house, i) in housesArray" :key="i"
+                                     :to="'/houses/' + house.key">{{ house.name }}
+                    </b-dropdown-item>
                 </b-nav-item-dropdown>
                 <b-nav-item exact-active-class="active" exact to="/about">About</b-nav-item>
                 <b-nav-item exact-active-class="active" exact to="/criteria">Criteria</b-nav-item>
                 <b-nav-item exact-active-class="active" exact to="/records">Records</b-nav-item>
-                <b-nav-item v-if="isAuthed" exact-active-class="active" exact to="/admin">Admin</b-nav-item>
+                <b-nav-item v-if="isAdmin" exact-active-class="active" exact to="/admin">Admin</b-nav-item>
                 <b-nav-item v-if="isAuthed" exact-active-class="active" exact to="/award">Award</b-nav-item>
             </b-navbar-nav>
 
@@ -22,7 +24,7 @@
                 <b-nav-item-dropdown right>
                     <!-- Using 'button-content' slot -->
                     <template v-slot:button-content>
-                        <em>{{ isAuthed ? userMail : 'Visitor' }}</em>
+                        <em>{{ username }}</em>
                     </template>
                     <b-dropdown-item v-if="!isAuthed" to="/login">Sigin In</b-dropdown-item>
                     <b-dropdown-item v-else @click="signOut">Sign Out</b-dropdown-item>
@@ -45,11 +47,17 @@
             }
         },
         computed: {
-            isAuthed() {
-                return this.$store.state.database.auth;
+            authStatus() {
+                return this.$store.getters.authStatus;
             },
-            userMail() {
-                return firebase.auth().currentUser.email;
+            isAuthed() {
+                return this.authStatus.perm !== 'None';
+            },
+            isAdmin() {
+                return this.authStatus.perm === 'Admin';
+            },
+            username() {
+                return this.authStatus.name;
             },
             housesArray() {
                 return this.mergeKey(this.houses);
