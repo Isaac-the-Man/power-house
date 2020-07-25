@@ -1,28 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TheNavbar></TheNavbar>
+    <div class="container my-5">
+      <router-view/>
+    </div>
+    <TheFooter></TheFooter>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import TheNavbar from "@/components/shared/TheNavbar";
+  import TheFooter from "@/components/shared/TheFooter";
+  import firebase from 'firebase/app'
+  import 'firebase/auth'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  export default {
+    name: 'App',
+    components: {
+      TheNavbar,
+      TheFooter
+    },
+    created() {
+      // signIn
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          this.makeToast('Signed In', `Admin ${user.email} has signed in.`, 'info');
+          this.$store.state.database.auth = true;
+        } else {
+          this.$store.state.database.auth = false;
+        }
+      });
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
