@@ -75,6 +75,7 @@
                         tags: this.form.tags,
                         notes: this.form.notes,
                         subject: this.form.subject,
+                        source: this.teacher,
                         createdAt: moment().format()
                     });
                     this.makeToast('Award Success', 'Successfully given award to corresponding students.', 'success');
@@ -104,10 +105,17 @@
                 return this.$store.getters.criteriaArray;
             },
             criteriaOptions() {
-                return [
-                    {title: 'Select a criterion', criterion: null},
-                    ...this.criteria // TODO: add points reference
-                ];
+                const formatted = [];
+                for (let criterion of this.criteria) {
+                    const modified = {...criterion};
+                    modified.title += ` (${criterion.points} points}`;
+                    formatted.push(modified);
+                }
+                formatted.unshift({ title: 'Select a criterion', criterion: null });
+                return formatted;
+            },
+            teacher() {
+                return this.$store.getters.authStatus.name;
             }
         }
     }
