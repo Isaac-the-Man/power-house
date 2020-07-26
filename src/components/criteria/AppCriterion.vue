@@ -6,7 +6,7 @@
         <b-collapse v-model="visible" accordion="criteria-accordion">
             <b-card-body>
                 <b-table-lite striped bordered head-variant="dark" small :fields="detailFields" :items="detailItems"></b-table-lite>
-                <b-button @click="deleteCriterion" block variant="danger">Delete</b-button>
+                <b-button v-if="isAuthed" @click="deleteCriterion" block variant="danger">Delete</b-button>
             </b-card-body>
         </b-collapse>
     </b-card>
@@ -21,6 +21,9 @@
             details: Array
         },
         computed: {
+            isAuthed() {
+                return this.$store.getters.authStatus.perm === 'Admin';
+            },
             heading() {
                 return `${this.title} (${this.points} points)`;
             },
