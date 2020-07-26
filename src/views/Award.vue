@@ -67,6 +67,23 @@
             }
         },
         methods: {
+            removeSchedule(subject) {
+                const formatted = this.clone(subject);
+                delete formatted.data.schedule;
+                return formatted;
+            },
+            extractTags(scheduleArray) {
+                const tags = [];
+                const now = moment();
+                for (let schedule of scheduleArray) {
+                    const start = moment(schedule.start, 'hh:mm');
+                    const end = moment(schedule.end, 'hh:mm');
+                    if (now.isBetween(start, end) && !tags.includes(schedule.name)) {
+                        tags.push(schedule.name);
+                    }
+                }
+                return tags;
+            },
             async pushNewAward() {
                 try {
                     await this.$store.state.database.db.ref('/awards').push({
@@ -74,7 +91,7 @@
                         criterion: this.form.criterion,
                         tags: this.form.tags,
                         notes: this.form.notes,
-                        subject: this.form.subject,
+                        subject: this.removeSchedule(this.form.subject),
                         source: this.teacher,
                         createdAt: moment().format()
                     });
@@ -116,6 +133,15 @@
             },
             teacher() {
                 return this.$store.getters.authStatus.name;
+            }
+        },
+        watch: {
+            'form.subject': function (val) {
+                // check if student
+                if (val.mode === 'Student' && val.data && val.data.schedule) {
+                    const schedule = val.data.schedule;
+                    this.form.tags = this.extractTags(schedule);
+                }
             }
         }
     }

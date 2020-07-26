@@ -83,6 +83,40 @@
                                required :options="houseOptions"></b-form-select>
             </b-form-group>
 
+            <!-- schedule editor -->
+            <b-form-group label="Schedule" label-for="newStudentSchedule">
+                <div class="row">
+                    <div class="col-md">
+                        <b-form @submit="addClass">
+                            <b-input-group prepend="Start">
+                                <b-form-input type="time" required id="newStudentSchedule" v-model="scheduleBuilder.start"></b-form-input>
+                            </b-input-group>
+                            <b-input-group class="mt-1" prepend="End">
+                                <b-form-input type="time" required v-model="scheduleBuilder.end"></b-form-input>
+                            </b-input-group>
+                            <b-input-group class="mt-1" prepend="Class Name">
+                                <b-form-input v-model="scheduleBuilder.name" required placeholder="Class Name"></b-form-input>
+                            </b-input-group>
+                            <b-button class="my-1" type="submit" block variant="secondary">Add Class</b-button>
+                        </b-form>
+                    </div>
+                    <div class="col-md">
+                        <b-table
+                                :items="newStudentForm.schedule"
+                                :fields="scheduleFields"
+                                bordered
+                                head-variant="dark"
+                                show-empty
+                                hover
+                                striped>
+                            <template v-slot:cell(actions)="row">
+                                <b-button size="sm" variant="danger" @click="deleteClass(row.item)">delete</b-button>
+                            </template>
+                        </b-table>
+                    </div>
+                </div>
+            </b-form-group>
+
             <b-button type="submit" variant="primary" block>Submit</b-button>
 
         </b-form>
@@ -107,7 +141,8 @@
                 newStudentForm: {
                     name: '',
                     grade: null,
-                    house: null
+                    house: null,
+                    schedule: []
                 },
                 gradeOptions: [{
                     text: 'Select a grade',
@@ -118,7 +153,18 @@
                     {label: 'Grade', key: 'grade', sortable: true},
                     {label: 'House', key: 'house', sortable: true},
                     {label: 'Actions', key: 'actions'},
-                ]
+                ],
+                scheduleFields: [
+                    { label: 'Name', key: 'name', sortable: true },
+                    { label: 'Start', key: 'start', sortable: true },
+                    { label: 'End', key: 'end', sortable: true },
+                    { label: 'Actions', key: 'actions' }
+                ],
+                scheduleBuilder: {
+                    start: '',
+                    end: '',
+                    name: ''
+                }
             }
         },
         computed: {
@@ -140,6 +186,22 @@
             }
         },
         methods: {
+            deleteClass(item) {
+                this.newStudentForm.schedule.splice(this.newStudentForm.schedule.indexOf(item), 1);
+            },
+            addClass(evt) {
+                evt.preventDefault();
+                this.newStudentForm.schedule.push({
+                    start: this.scheduleBuilder.start,
+                    end: this.scheduleBuilder.end,
+                    name: this.scheduleBuilder.name
+                });
+                this.scheduleBuilder = {
+                    start: null,
+                    end: null,
+                    name: ''
+                }
+            },
             async deleteStudent(id) {
                 try {
                     await this.$store.state.database.db.ref('/students').child(id).remove();
@@ -154,7 +216,8 @@
                     await this.$store.state.database.db.ref('/students').push({
                         name: this.newStudentForm.name,
                         grade: this.newStudentForm.grade,
-                        house: this.newStudentForm.house
+                        house: this.newStudentForm.house,
+                        schedule: this.newStudentForm.schedule
                     });
                     this.makeToast('New Student Created', 'New Student has been created successfully.', 'success');
                 } catch (e) {
@@ -168,7 +231,8 @@
                 this.newStudentForm = {
                     name: '',
                     grade: null,
-                    house: null
+                    house: null,
+                    schedule: []
                 }
             },
             onFiltered(filteredItems) {

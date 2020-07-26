@@ -52,6 +52,7 @@
         <!-- pagination -->
         <div class="d-flex justify-content-center">
             <b-pagination
+                    class="shadow"
                     v-model="currentPage"
                     :total-rows="totalRows"
                     :per-page="perPage"
@@ -95,6 +96,7 @@
                     { label: 'House', key: 'house', sortable: true },
                     { label: 'Notes', key: 'notes', sortable: true },
                     { label: 'Tags', key: 'tags' },
+                    { label: 'From', key: 'source', sortable: true },  // TODO: Given not showing
                     { label: 'Date', key: 'createdAt', sortable: true }
                 ]
                 if (!this.isAuthed) {
@@ -136,6 +138,7 @@
                         house: this.getHouseName(award.subject.mode === 'Student' ? award.subject.data.house : award.subject.data.key).name,
                         notes: award.notes,
                         tags: award.tags,
+                        source: award.source,
                         createdAt: this.formatTime(award.createdAt)
                     });
                 }

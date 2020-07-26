@@ -24,6 +24,7 @@
                                value-field="key"
                                required :options="houseOptions"></b-form-select>
             </b-form-group>
+            <!-- TODO: add edit schedule  -->
             <b-button size="sm" type="submit" variant="warning" block>Update</b-button>
         </b-form>
         <pre>

@@ -20,6 +20,11 @@
                 <AppStudentPanel></AppStudentPanel>
             </div>
         </div>
+        <div class="row mt-3">
+            <div class="col">
+                <AppAdvancedPanel></AppAdvancedPanel>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -27,13 +32,15 @@
     import AppUserPanel from "@/components/admin/AppUserPanel";
     import AppHousePanel from "@/components/admin/AppHousePanel";
     import AppStudentPanel from "@/components/admin/AppStudentPanel";
+    import AppAdvancedPanel from "@/components/admin/AppAdvancedPanel";
 
     export default {
         name: "Admin",
         components: {
             AppUserPanel,
             AppHousePanel,
-            AppStudentPanel
+            AppStudentPanel,
+            AppAdvancedPanel
         }
     }
 </script>
