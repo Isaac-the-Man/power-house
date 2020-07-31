@@ -2,29 +2,35 @@
     <div v-if="isDataLoaded">
         <!-- step 1 -->
         <h5>Step 1: Upload TimeBlocks</h5>
-        <p>Upload a CSV with three columns: <strong>Block</strong>, <strong>Start</strong>, and <strong>End</strong>.
+        <p>Upload a CSV with three columns: <strong>Block</strong>, <strong>Start</strong>, <strong>End</strong>, and
+            <strong>Day</strong>. Days can only be one of the following: <i>1, 2, 3, ..., 7</i>, each representing a day
+            of the week.
             Sample below:</p>
         <b-table-simple small hover striped bordered>
             <b-thead head-variant="dark">
                 <b-th>Block</b-th>
                 <b-th>Start</b-th>
                 <b-th>End</b-th>
+                <b-th>Day</b-th>
             </b-thead>
             <b-tbody>
                 <b-tr>
                     <b-td>Block1</b-td>
                     <b-td>08:30</b-td>
                     <b-td>09:30</b-td>
+                    <b-td>1</b-td>
                 </b-tr>
                 <b-tr>
                     <b-td>Block2</b-td>
                     <b-td>13:00</b-td>
                     <b-td>15:30</b-td>
+                    <b-td>2</b-td>
                 </b-tr>
                 <b-tr>
                     <b-td>Block3</b-td>
                     <b-td>15:30</b-td>
                     <b-td>18:30</b-td>
+                    <b-td>3</b-td>
                 </b-tr>
             </b-tbody>
         </b-table-simple>
@@ -48,7 +54,8 @@
             <h5>Step 2: Upload Students by Houses</h5>
             <p>For each house upload a CSV with <strong>Name</strong>, <strong>Grade</strong>, and the courses for each
                 time
-                blocks you uploaded in the previous step. Grades can only be of the following: <i>g1, g2, g3, ... , g12</i>. Note that courses can be leave blank. Sample below:</p>
+                blocks you uploaded in the previous step. Grades can only be of the following: <i>g1, g2, g3, ... ,
+                    g12</i>. Note that courses can be leave blank. Sample below:</p>
             <b-table-simple small hover striped bordered>
                 <b-thead head-variant="dark">
                     <b-th>Name</b-th>
@@ -189,6 +196,7 @@
                                     merged.schedule.push({
                                         start: this.timeblockDict[key].start,
                                         end: this.timeblockDict[key].end,
+                                        day: this.timeblockDict[key].day,
                                         name: course
                                     });
                                 } else {
@@ -254,16 +262,16 @@
                     header: true,
                     complete(results) {
                         console.log(results)
-                        if (vm.arrayEquals(results.meta.fields, ["Block", "Start", "End"])) {
+                        if (vm.arrayEquals(results.meta.fields, ["Block", "Start", "End", "Day"])) {
                             vm.parsed.timeblock = results;
                             vm.makeToast('File Parsed', 'Time blocks successfully parsed.', 'success');
                         } else {
-                            vm.makeToast('Parsing Error', 'Required Column "Block", "Start", or "End" not found.', 'danger');
+                            vm.makeToast('Parsing Error', 'Required Column "Block", "Start", "End", or "Day" not found.', 'danger');
                         }
                         vm.raw.timeblock.file = null;
                     },
                     error(error) {
-                        vm.makeToast('Parsing Error', 'Required Column "Block", "Start", or "End" not found.', 'danger');
+                        vm.makeToast('Parsing Error', 'Required Column "Block", "Start", "End", or "Day" not found.', 'danger');
                         console.log(error);
                         vm.raw.timeblock.file = null;
                     }
@@ -279,7 +287,8 @@
                 for (let block of this.parsed.timeblock.data) {
                     dict[block.Block] = {
                         start: block.Start,
-                        end: block.End
+                        end: block.End,
+                        day: block.Day
                     };
                 }
                 return dict;
