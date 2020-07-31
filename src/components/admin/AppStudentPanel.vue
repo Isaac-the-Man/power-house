@@ -97,6 +97,9 @@
                             <b-input-group class="mt-1" prepend="End">
                                 <b-form-input type="time" required v-model="scheduleBuilder.end"></b-form-input>
                             </b-input-group>
+                            <b-input-group class="mt-1" prepend="Day of Week">
+                                <b-form-select :options="days" required v-model="scheduleBuilder.day"></b-form-select>
+                            </b-input-group>
                             <b-input-group class="mt-1" prepend="Class Name">
                                 <b-form-input v-model="scheduleBuilder.name" required placeholder="Class Name"></b-form-input>
                             </b-input-group>
@@ -112,6 +115,9 @@
                                 show-empty
                                 hover
                                 striped>
+                            <template v-slot:cell(day)="row">
+                                {{ row.item.day ? daysDict[row.item.day] : '' }}
+                            </template>
                             <template v-slot:cell(actions)="row">
                                 <b-button size="sm" variant="danger" @click="deleteClass(row.item)">delete</b-button>
                             </template>
@@ -161,12 +167,33 @@
                     { label: 'Name', key: 'name', sortable: true },
                     { label: 'Start', key: 'start', sortable: true },
                     { label: 'End', key: 'end', sortable: true },
+                    { label: 'Day', key: 'day', sortable: true },
                     { label: 'Actions', key: 'actions' }
                 ],
                 scheduleBuilder: {
                     start: '',
                     end: '',
+                    day: null,
                     name: ''
+                },
+                days: [
+                    { text: 'Select a day', value: null },
+                    { text: 'Mon', value: 1 },
+                    { text: 'Tue', value: 2 },
+                    { text: 'Wed', value: 3 },
+                    { text: 'Thu', value: 4 },
+                    { text: 'Fri', value: 5 },
+                    { text: 'Sat', value: 6 },
+                    { text: 'Sun', value: 7 }
+                ],
+                daysDict: {
+                    1: 'Mon',
+                    2: 'Tue',
+                    3: 'Wed',
+                    4: 'Thu',
+                    5: 'Fri',
+                    6: 'Sat',
+                    7: 'Sun'
                 }
             }
         },
@@ -197,11 +224,13 @@
                 this.newStudentForm.schedule.push({
                     start: this.scheduleBuilder.start,
                     end: this.scheduleBuilder.end,
+                    day: this.scheduleBuilder.day,
                     name: this.scheduleBuilder.name
                 });
                 this.scheduleBuilder = {
-                    start: null,
-                    end: null,
+                    start: '',
+                    end: '',
+                    day: null,
                     name: ''
                 }
             },
