@@ -78,7 +78,7 @@
                 for (let schedule of scheduleArray) {
                     const start = moment(schedule.start, 'hh:mm');
                     const end = moment(schedule.end, 'hh:mm');
-                    if (now.isBetween(start, end) && !tags.includes(schedule.name)) {
+                    if (now.isBetween(start, end) && !tags.includes(schedule.name) && now.isoWeekday() === schedule.day) {
                         tags.push(schedule.name);
                     }
                 }
