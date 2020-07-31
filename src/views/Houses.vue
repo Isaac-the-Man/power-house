@@ -100,7 +100,7 @@
                     if (award.subject.mode === 'Student') {
                         houseKey = award.subject.data.house;
                     } else {
-                        houseKey = award.subject.data;
+                        houseKey = award.subject.data.key;
                     }
                     if (houseKey === this.houseKey) {
                         inHouse.push({

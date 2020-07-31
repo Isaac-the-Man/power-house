@@ -34,6 +34,9 @@
             <template v-slot:cell(house)="row">
                 {{ houses[row.item.house].name }}
             </template>
+            <template v-slot:cell(grade)="row">
+                {{ row.item.grade.toUpperCase() }}
+            </template>
             <template v-slot:cell(actions)="row">
                 <b-button @click="deleteStudent(row.item.key)" size="sm" variant="danger">delete</b-button>
                 <b-button class="ml-1" @click="row.toggleDetails" size="sm" variant="warning">{{ row.detailsShowing ?

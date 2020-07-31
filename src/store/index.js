@@ -104,7 +104,7 @@ const vuexStore = new Vuex.Store({
                     scored[key].score = 0;
                 }
                 for (let award of getters.populatedAwardsArray) {
-                    if (award.subject.mode === "Student") {
+                    if (award.subject.mode === "Student" && scored[award.subject.data.key]) {
                         if (award.addDeduct === 'add') {
                             scored[award.subject.data.key].score += award.criterion.points;
                         } else {
@@ -131,7 +131,7 @@ const vuexStore = new Vuex.Store({
                     scored[key].score = 0;
                 }
                 for (let award of getters.populatedAwardsArray) {
-                    if (award.subject.mode === "Student") {
+                    if (award.subject.mode === "Student" && scored[award.subject.data.key]) {
                         if (award.addDeduct === 'add') {
                             scored[award.subject.data.key].score += award.criterion.points;
                         } else {
