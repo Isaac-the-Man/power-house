@@ -66,6 +66,7 @@
         methods: {
             signOut() {
                 firebase.auth().signOut();
+                this.$router.push('/');
                 this.makeToast('Signed Out', `Admin has signed out.`, 'info');
             }
         },
