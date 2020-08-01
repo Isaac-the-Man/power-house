@@ -23,7 +23,18 @@
                             </b-form>
 
                             <!-- all awards -->
-                            <AppRecentAwards :awards="inHouseAwardsArray"></AppRecentAwards>
+                            <AppRecentAwards :awards="paginatedFilteredAwards"></AppRecentAwards>
+
+                            <!-- pagination -->
+                            <div class="mt-3 d-flex justify-content-center">
+                                <b-pagination
+                                        class="shadow"
+                                        v-model="awardsTab.currentPage"
+                                        :total-rows="awardsTab.totalRows"
+                                        per-page="5"
+                                        align="fill"
+                                ></b-pagination>
+                            </div>
 
                         </b-tab>
                         <b-tab title="Students">
@@ -83,7 +94,11 @@
         },
         data() {
             return {
-                search: ''
+                search: '',
+                awardsTab: {
+                    currentPage: 1,
+                    totalRows: 1
+                }
             }
         },
         computed: {
@@ -109,7 +124,7 @@
                         });
                     }
                 }
-                return inHouse;
+                return inHouse.reverse();
             },
             houseKey() {
                 return this.$route.params.houseId;
@@ -153,6 +168,24 @@
                 return this.inHouseStudentsArray.filter((student) => {
                     return student.name.toLowerCase().includes(this.search.toLowerCase())
                 });
+            },
+            filteredAwards() {
+                return this.inHouseAwardsArray.filter((award) => {
+                    return award.criterion.title.toLowerCase().includes(this.search.toLowerCase())
+                });
+            },
+            paginatedFilteredAwards() {
+                return this.filteredAwards.slice((this.awardsTab.currentPage-1)*5, (this.awardsTab.currentPage-1)*5 + 5);
+            }
+        },
+        watch: {
+            filteredAwards(val) {
+                if (this.filteredAwards) {
+                    this.awardsTab.currentPage = 1;
+                    this.awardsTab.totalRows = val.length;
+                } else {
+                    this.awardsTab.totalRows = 1;
+                }
             }
         }
     }
