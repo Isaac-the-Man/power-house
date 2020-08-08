@@ -40,11 +40,7 @@
       </template>
       <template v-slot:cell(actions)="row">
         <b-button @click="deleteStudent(row.item.key)" size="sm" variant="danger">delete</b-button>
-        <b-button class="ml-1" @click="row.toggleDetails" size="sm" variant="warning">{{
-            row.detailsShowing ?
-                'hide' : 'edit'
-          }}
-        </b-button>
+        <b-button class="ml-1" @click="row.toggleDetails" size="sm" variant="warning">{{ row.detailsShowing ? 'hide' : 'edit' }}</b-button>
       </template>
       <template v-slot:row-details="row">
         <AppEditStudent

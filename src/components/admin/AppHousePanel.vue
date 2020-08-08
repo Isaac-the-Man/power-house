@@ -19,7 +19,11 @@
         </div>
       </template>
       <template v-slot:cell(action)="row">
-        <b-button size="sm" variant="warning" @click="deleteHouse(row.item.key)">delete</b-button>
+        <b-button size="sm" variant="danger" @click="deleteHouse(row.item.key)">delete</b-button>
+        <b-button class="ml-1" @click="row.toggleDetails" size="sm" variant="warning">{{ row.detailsShowing ? 'hide' : 'edit' }}</b-button>
+      </template>
+      <template v-slot:row-details="row">
+        <AppEditHouse :house="row.item"></AppEditHouse>
       </template>
     </b-table>
     <h4>Create New House</h4>
@@ -42,8 +46,13 @@
 </template>
 
 <script>
+import AppEditHouse from "@/components/admin/AppEditHouse";
+
 export default {
   name: "AppHousePanel",
+  components: {
+    AppEditHouse
+  },
   data() {
     return {
       houseFields: [
