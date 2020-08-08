@@ -5,13 +5,21 @@
         <h1>Criteria</h1>
       </div>
     </div>
-    <div class="row">
+    <div v-if="criteriaArray.length > 0" class="row">
       <div class="col">
         <div>
           <AppCriterion v-for="(criterion) in criteriaArray" :key="criterion.key" :title="criterion.title"
                         :points="criterion.points"
                         :details="criterion.details">
           </AppCriterion>
+        </div>
+      </div>
+    </div>
+    <div v-else class="row">
+      <div class="col">
+        <div class="text-center">
+          <h3 class="font-weight-lighter">Wow, such empty...</h3>
+          <b-link to="/">Return</b-link>
         </div>
       </div>
     </div>
