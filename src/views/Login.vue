@@ -39,7 +39,7 @@
                 evt.preventDefault();
                 try {
                     await firebase.auth().signInWithEmailAndPassword(this.email, this.password);
-                    this.$router.go(-1);
+                    this.$router.push('/');
                 } catch (e) {
                     console.log(e);
                     this.makeToast('Login Error', 'Invalid Email or Password', 'danger');
