@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-overlay :show="!isDataLoaded">
     <div v-if="isDataLoaded">
       <div class="row">
         <div class="col">
@@ -79,7 +79,7 @@
         <pre>{{ inHouseAwardsArray }}</pre>
       </div>
     </div>
-  </div>
+  </b-overlay>
 </template>
 
 <script>

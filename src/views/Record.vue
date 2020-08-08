@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <b-overlay :show="!isDataLoaded">
         <div class="row">
             <div class="col">
                 <h1>Records</h1>
@@ -11,7 +11,7 @@
             </div>
         </div>
 
-    </div>
+    </b-overlay>
 </template>
 
 <script>
