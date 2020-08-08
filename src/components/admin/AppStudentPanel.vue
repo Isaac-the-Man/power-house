@@ -22,6 +22,7 @@
         bordered
         hover
         show-empty
+        stacked="md"
         empty-text="No Students Yet."
         head-variant="dark"
         :current-page="currentPage"
@@ -111,6 +112,7 @@
           </div>
           <div class="col-md">
             <b-table
+                :responsive="true"
                 :items="newStudentForm.schedule"
                 :fields="scheduleFields"
                 bordered
@@ -132,16 +134,24 @@
       <b-button type="submit" variant="primary" block>Submit</b-button>
 
     </b-form>
+
+    <h4 class="mt-3">Bulk Create Students</h4>
+    <p>Follow the steps to create large amount of students at a time by uploading CSVs. Houses must be created before
+      uploads.</p>
+    <AppBulkUpload></AppBulkUpload>
+
   </b-card>
 </template>
 
 <script>
 import AppEditStudent from "@/components/admin/AppEditStudent";
+import AppBulkUpload from "@/components/admin/AppBulkUpload";
 
 export default {
   name: "AppStudentPanel",
   components: {
-    AppEditStudent
+    AppEditStudent,
+    AppBulkUpload
   },
   data() {
     return {

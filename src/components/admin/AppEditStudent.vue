@@ -47,6 +47,7 @@
           </div>
           <div class="col-md">
             <b-table
+                :responsive="true"
                 :items="editStudentForm.schedule"
                 :fields="scheduleFields"
                 bordered
@@ -121,6 +122,9 @@ export default {
     },
     addClass(evt) {
       evt.preventDefault();
+      if (!this.editStudentForm.schedule) {
+        this.editStudentForm.schedule = [];
+      }
       this.editStudentForm.schedule.push({
         start: this.scheduleBuilder.start,
         end: this.scheduleBuilder.end,
