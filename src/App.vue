@@ -26,7 +26,6 @@
                 if (user) {
                     this.makeToast('Signed In', `Admin ${user.email} has signed in.`, 'info');
                     this.$store.state.database.auth = true;
-                    this.$router.push('/');
                 } else {
                     this.$store.state.database.auth = false;
                 }
