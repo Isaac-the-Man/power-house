@@ -8,9 +8,7 @@
     <div v-if="criteriaArray.length > 0" class="row">
       <div class="col">
         <div>
-          <AppCriterion v-for="(criterion) in criteriaArray" :key="criterion.key" :title="criterion.title"
-                        :points="criterion.points"
-                        :details="criterion.details">
+          <AppCriterion v-for="(criterion) in criteriaArray" :key="criterion.key" :criterion="criterion">
           </AppCriterion>
         </div>
       </div>
