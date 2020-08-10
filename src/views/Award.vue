@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-overlay :show="!isDataLoaded">
     <h1>Award Panel</h1>
     <b-card class="shadow">
       <b-card-title><h2>Give Award</h2></b-card-title>
@@ -39,7 +39,7 @@
       </b-form>
     </b-card>
     <pre>{{ form }}</pre>
-  </div>
+  </b-overlay>
 
 </template>
 
@@ -122,6 +122,9 @@ export default {
     }
   },
   computed: {
+    isDataLoaded() {
+      return this.$store.getters.isDataLoaded;
+    },
     criteria() {
       return this.$store.getters.criteriaArray;
     },

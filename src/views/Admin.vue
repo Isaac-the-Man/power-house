@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <b-overlay :show="!isDataLoaded">
         <div class="row">
             <div class="col">
                 <h1>Admin Panel</h1>
@@ -25,7 +25,7 @@
                 <AppAdvancedPanel></AppAdvancedPanel>
             </div>
         </div>
-    </div>
+    </b-overlay>
 </template>
 
 <script>
@@ -36,6 +36,11 @@
 
     export default {
         name: "Admin",
+        computed: {
+          isDataLoaded() {
+            return this.$store.getters.isDataLoaded;
+          }
+        },
         components: {
             AppUserPanel,
             AppHousePanel,
