@@ -69,6 +69,7 @@
     </div>
     <div class="row">
       <div v-if="isDataLoaded" class="col">
+        <pre>{{ awardsTab }}</pre>
         <h3>house: {{ houseKey }}</h3>
         <pre>{{ house }}</pre>
         <h3>students</h3>
@@ -197,6 +198,9 @@ export default {
         this.awardsTab.totalRows = 1;
       }
     }
+  },
+  created() {
+    this.awardsTab.totalRows = this.filteredAwards.length;
   }
 }
 </script>
