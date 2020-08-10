@@ -67,9 +67,8 @@
       </b-form-group>
       <b-button size="sm" type="submit" variant="warning" block>Update</b-button>
     </b-form>
-    <pre>
-            {{ editStudentForm }}
-        </pre>
+    <pre>house changed? {{ houseChanged }}</pre>
+    <pre>{{ editStudentForm }}</pre>
   </b-card>
 </template>
 
@@ -114,6 +113,14 @@ export default {
       }
     }
   },
+  computed: {
+    houseChanged() {
+      return this.student.house !== this.editStudentForm.house;
+    },
+    awards() {
+      return this.$store.state.data.awards;
+    }
+  },
   methods: {
     deleteClass(item) {
       console.log('attempt to delete');
@@ -138,9 +145,25 @@ export default {
         name: ''
       }
     },
+    updateAwards() {
+      const updatedAwards = {};
+      for (let [key, award] of Object.entries(this.awards)) {
+        if (award.subject.mode === 'Student' && award.subject.data.key === this.student.key) {
+          updatedAwards[key + '/subject/data/house'] = this.editStudentForm.house;
+          console.log(key);
+          console.log(award);
+        }
+      }
+      return this.$store.state.database.db.ref('/awards').update(updatedAwards);
+    },
     async updateStudent(evt) {
       evt.preventDefault();
       try {
+        // update related awards if house changed
+        if (this.houseChanged) {
+          await this.updateAwards();
+        }
+        // update student
         await this.$store.state.database.db.ref('/students').child(this.student.key).update(this.editStudentForm);
         this.makeToast('Student Updated', 'Student has been successfully updated.', 'success');
       } catch (e) {
