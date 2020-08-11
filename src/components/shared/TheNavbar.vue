@@ -7,7 +7,7 @@
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
         <b-nav-item exact-active-class="active" exact to="/">Dashboard</b-nav-item>
-        <b-nav-item-dropdown right text="Houses">
+        <b-nav-item-dropdown v-if="housesArray.length > 0" right text="Houses">
           <b-dropdown-item exact-active-class="active" exact v-for="(house, i) in housesArray" :key="i"
                            :to="'/houses/' + house.key">{{ house.name }}
           </b-dropdown-item>
