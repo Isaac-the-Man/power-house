@@ -33,7 +33,7 @@
         :fields="studentFields"
         :items="studentsArray">
       <template v-slot:cell(house)="row">
-        {{ houses[row.item.house].name }}
+        {{ houses[row.item.house] ? houses[row.item.house].name : '[deleted]' }}
       </template>
       <template v-slot:cell(grade)="row">
         {{ row.item.grade.toUpperCase() }}
@@ -213,7 +213,7 @@ export default {
       return this.$store.state.data.houses;
     },
     studentsArray() {
-      return this.$store.getters.studentsArray;
+        return this.$store.getters.studentsArray;
     },
     houseOptions() {
       if (this.houses) {
@@ -254,7 +254,7 @@ export default {
         }
       } catch (e) {
         console.log(e);
-        this.makeToast('Student Deletion Failed', 'An error occurred while deleting student.Please try again later.', 'danger')
+        this.makeToast('Student Deletion Failed', 'An error occurred while deleting student. Please try again later.', 'danger')
       }
     },
     async pushNewStudent() {
