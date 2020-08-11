@@ -137,7 +137,7 @@ export default {
           title: award.criterion.title,
           points: award.addDeduct === 'add' ? award.criterion.points : -1 * award.criterion.points,
           subject: award.subject.mode === 'Student' ? award.subject.data.grade.toUpperCase() + ' ' + award.subject.data.name : award.subject.data.name,
-          house: this.getHouseName(award.subject.mode === 'Student' ? award.subject.data.house : award.subject.data.key).name,
+          house: this.getHouseName(award.subject.mode === 'Student' ? award.subject.data.house : award.subject.data.key),
           notes: award.notes,
           tags: award.tags,
           source: award.source,
@@ -164,7 +164,11 @@ export default {
       return moment(str).format('lll');
     },
     getHouseName(id) {
-      return this.houses[id];
+      if (this.houses[id]) {
+        return this.houses[id].name;
+      } else {
+        return '[deleted]'
+      }
     },
     onFiltered(filteredItems) {
       this.totalRows = filteredItems.length;

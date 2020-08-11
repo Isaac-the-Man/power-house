@@ -74,8 +74,11 @@ export default {
   methods: {
     async deleteHouse(uid) {
       try {
-        await this.$store.state.database.db.ref('/houses').child(uid).remove();
-        this.makeToast('House Deleted', 'House has been deleted successfully.', 'success');
+        const res = await this.confirmModal('Do you confirm to delete this house? All related data will also be deleted as a result. This action is irreversible.');
+        if (res) {
+          await this.$store.state.database.db.ref('/houses').child(uid).remove();
+          this.makeToast('House Deleted', 'House has been deleted successfully.', 'success');
+        }
       } catch (e) {
         console.log(e);
         this.makeToast('House Deletion Failed', 'An error occurred while deleting house. Please try again later.', 'danger');
@@ -90,7 +93,7 @@ export default {
         this.makeToast('New House Created', 'New house successfully created.', 'success');
       } catch (e) {
         console.log(e);
-        this.makeToast('Create House Failed', 'An error occured while creating the new house. Please try again later.', 'danger');
+        this.makeToast('Create House Failed', 'An error occurred while creating the new house. Please try again later.', 'danger');
       }
     },
     async newHouse(evt) {

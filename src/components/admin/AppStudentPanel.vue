@@ -40,7 +40,9 @@
       </template>
       <template v-slot:cell(actions)="row">
         <b-button @click="deleteStudent(row.item.key)" size="sm" variant="danger">delete</b-button>
-        <b-button class="ml-1" @click="row.toggleDetails" size="sm" variant="warning">{{ row.detailsShowing ? 'hide' : 'edit' }}</b-button>
+        <b-button class="ml-1" @click="row.toggleDetails" size="sm" variant="warning">
+          {{ row.detailsShowing ? 'hide' : 'edit' }}
+        </b-button>
       </template>
       <template v-slot:row-details="row">
         <AppEditStudent
@@ -245,8 +247,11 @@ export default {
     },
     async deleteStudent(id) {
       try {
-        await this.$store.state.database.db.ref('/students').child(id).remove();
-        this.makeToast('Student Delete', 'Student has been deleted successfully.', 'success');
+        const res = await this.confirmModal('Do you confirm to delete student? This action is irreversible.');
+        if (res) {
+          await this.$store.state.database.db.ref('/students').child(id).remove();
+          this.makeToast('Student Delete', 'Student has been deleted successfully.', 'success');
+        }
       } catch (e) {
         console.log(e);
         this.makeToast('Student Deletion Failed', 'An error occurred while deleting student.Please try again later.', 'danger')

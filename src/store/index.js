@@ -79,10 +79,12 @@ const vuexStore = new Vuex.Store({
                     console.log(award.subject)
                     console.log(houseKey);
                     console.log(scored[houseKey]);
-                    if (award.addDeduct === 'add') {
-                        scored[houseKey].score += award.criterion.points;
-                    } else {
-                        scored[houseKey].score -= award.criterion.points;
+                    if (scored[houseKey]) {
+                        if (award.addDeduct === 'add') {
+                            scored[houseKey].score += award.criterion.points;
+                        } else {
+                            scored[houseKey].score -= award.criterion.points;
+                        }
                     }
                 }
                 return scored;

@@ -91,10 +91,13 @@ export default {
   methods: {
     async grantAdmin(uid) {
       try {
-        await this.$store.state.database.db.ref('/admins').child(uid).update({
-          perm: 'Admin'
-        });
-        this.makeToast('Admin Updated', 'Successfully granted Admin permission.', 'success');
+        const res = await this.confirmModal('Do you confirm to grant admin permission for this account?');
+        if (res) {
+          await this.$store.state.database.db.ref('/admins').child(uid).update({
+            perm: 'Admin'
+          });
+          this.makeToast('Admin Updated', 'Successfully granted Admin permission.', 'success');
+        }
       } catch (e) {
         console.log(e);
         this.makeToast('Admin Update Failed', 'An error occurred while granting Admin permission. Please try again later.', 'danger');
@@ -102,10 +105,13 @@ export default {
     },
     async repealAdmin(uid) {
       try {
-        await this.$store.state.database.db.ref('/admins').child(uid).update({
-          perm: 'Teacher'
-        });
-        this.makeToast('Admin Updated', 'Successfully repealed Admin permission.', 'success');
+        const res = await this.confirmModal('Do you confirm to repeal admin permission for this account?');
+        if (res) {
+          await this.$store.state.database.db.ref('/admins').child(uid).update({
+            perm: 'Teacher'
+          });
+          this.makeToast('Admin Updated', 'Successfully repealed Admin permission.', 'success');
+        }
       } catch (e) {
         console.log(e);
         this.makeToast('Admin Update Failed', 'An error occurred while repealing Admin permission. Please try again later.', 'danger');
