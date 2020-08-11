@@ -9,11 +9,13 @@ export default {
         mergeKey(obj) {
             // merge objects of objects to array of objects with keys
             const formatted = [];
-            for (let key of Object.keys(obj)) {
-                formatted.push({
-                    ...obj[key],
-                    key: key
-                });
+            if (obj) {
+                for (let key of Object.keys(obj)) {
+                    formatted.push({
+                        ...obj[key],
+                        key: key
+                    });
+                }
             }
             return formatted;
         },

@@ -216,19 +216,39 @@ const vuexStore = new Vuex.Store({
 
 // data hooks
 database.ref('/houses').on('value', (data) => {
-    vuexStore.state.data.houses = data.val();
+    if (data.val()) {
+        vuexStore.state.data.houses = data.val();
+    } else {
+        vuexStore.state.data.houses = {};
+    }
 });
 database.ref('/awards').on('value', (data) => {
-    vuexStore.state.data.awards = data.val();
+    if (data.val()) {
+        vuexStore.state.data.awards = data.val();
+    } else {
+        vuexStore.state.data.awards = {};
+    }
 });
 database.ref('/students').on('value', (data) => {
-    vuexStore.state.data.students = data.val();
+    if (data.val()) {
+        vuexStore.state.data.students = data.val();
+    } else {
+        vuexStore.state.data.students = {};
+    }
 });
 database.ref('/criteria').on('value', (data) => {
-    vuexStore.state.data.criteria = data.val();
+    if (data.val()) {
+        vuexStore.state.data.criteria = data.val();
+    } else {
+        vuexStore.state.data.criteria = {};
+    }
 });
 database.ref('/admins').on('value', (data) => {
-    vuexStore.state.data.admins = data.val();
+    if (data.val()) {
+        vuexStore.state.data.admins = data.val();
+    } else {
+        vuexStore.state.data.admins = {};
+    }
 });
 
 // export
