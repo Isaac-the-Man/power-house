@@ -3,18 +3,8 @@ import Vuex from 'vuex'
 import firebase from 'firebase/app'
 import 'firebase/database'
 import utils from '../mixins/utils'
+import firebaseConfig from '../secret'; // configuration for app
 
-// configuration for app
-const firebaseConfig = {
-    apiKey: "AIzaSyB2gTGUGrHX_YPHIsS3GL5I9BIUlK0kZPM",
-    authDomain: "power-house-60f86.firebaseapp.com",
-    databaseURL: "https://power-house-60f86.firebaseio.com",
-    projectId: "power-house-60f86",
-    storageBucket: "power-house-60f86.appspot.com",
-    messagingSenderId: "734840832903",
-    appId: "1:734840832903:web:fb73164826cdce7fba8922",
-    measurementId: "G-SRSLBPMTDF"
-};
 firebase.initializeApp(firebaseConfig);
 
 // Get a reference to the database service

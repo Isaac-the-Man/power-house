@@ -1,6 +1,6 @@
 <template>
   <b-navbar class="shadow" toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand to="/">Power House</b-navbar-brand>
+    <b-navbar-brand to="/">{{ siteTitle }}</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -46,6 +46,9 @@ export default {
     }
   },
   computed: {
+    siteTitle() {
+      return process.env.VUE_APP_SITE_TITLE;
+    },
     authStatus() {
       return this.$store.getters.authStatus;
     },
