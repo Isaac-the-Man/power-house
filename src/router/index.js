@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Criteria from "@/views/Criteria";
 import Login from "@/views/Login";
 import Award from "@/views/Award";
-import About from '@/views/About';
 import Store from '@/store/index';
 import Admin from "@/views/Admin";
 import Houses from "@/views/Houses";
@@ -23,11 +22,6 @@ const routes = [
         path: '/houses/:houseId',
         name: 'Houses',
         component: Houses
-    },
-    {
-        path: '/about',
-        name: 'About',
-        component: About
     },
     {
         path: '/criteria',

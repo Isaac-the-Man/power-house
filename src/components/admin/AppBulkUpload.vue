@@ -191,7 +191,6 @@ export default {
             schedule: []
           };
           for (let [key, course] of Object.entries(student)) {
-            console.log('loading key: ' + key);
             if (key !== 'Name' && key !== 'Grade' && course !== '') {
               if (this.timeblockDict[key]) {
                 merged.schedule.push({
@@ -200,14 +199,9 @@ export default {
                   day: this.timeblockDict[key].day,
                   name: course
                 });
-              } else {
-                console.log('timeblock not found')
               }
-            } else {
-              console.log('key skipped...')
             }
           }
-          console.log(merged)
           this.merged.push(merged);
         }
       }
@@ -219,7 +213,6 @@ export default {
         skipEmptyLines: true,
         header: true,
         complete(results) {
-          console.log(results);
           if (results.meta.fields.includes('Name') && results.meta.fields.includes('Grade')) {
             // check grade
             for (let student of results.data) {
@@ -245,9 +238,9 @@ export default {
           vm.raw.house.file = null;
           vm.houseSelected = null;
         },
-        error(error) {
+        error(e) {
+          console.log(e);
           vm.makeToast('Parsing Error', 'Required Column "Name" and "Grade" not found.', 'danger');
-          console.log(error);
           vm.raw.house.file = null;
           vm.houseSelected = null;
         }
@@ -262,7 +255,6 @@ export default {
       const config = {
         header: true,
         complete(results) {
-          console.log(results)
           if (vm.arrayEquals(results.meta.fields, ["Block", "Start", "End", "Day"])) {
             vm.parsed.timeblock = results;
             vm.makeToast('File Parsed', 'Time blocks successfully parsed.', 'success');
@@ -271,9 +263,9 @@ export default {
           }
           vm.raw.timeblock.file = null;
         },
-        error(error) {
+        error(e) {
+          console.log(e);
           vm.makeToast('Parsing Error', 'Required Column "Block", "Start", "End", or "Day" not found.', 'danger');
-          console.log(error);
           vm.raw.timeblock.file = null;
         }
       }

@@ -66,19 +66,13 @@ const vuexStore = new Vuex.Store({
                 for (let key of Object.keys(scored)) {
                     scored[key].score = 0;
                 }
-                console.log(scored);
                 for (let award of getters.populatedAwardsArray) {
                     let houseKey;
                     if (award.subject.mode === 'Student') {
                         houseKey = award.subject.data.house;
-                        console.log('mode student')
                     } else {
                         houseKey = award.subject.data.key;
-                        console.log('house')
                     }
-                    console.log(award.subject)
-                    console.log(houseKey);
-                    console.log(scored[houseKey]);
                     if (scored[houseKey]) {
                         if (award.addDeduct === 'add') {
                             scored[houseKey].score += award.criterion.points;
@@ -159,7 +153,6 @@ const vuexStore = new Vuex.Store({
                         // TODO: fix house name not showing in recent awards
                     }
                 }
-                console.log(populated);
                 return populated;
             } else {
                 return {};

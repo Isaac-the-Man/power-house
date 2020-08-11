@@ -54,7 +54,6 @@ export default {
   watch: {
     isAuthed(val) {
       if (val) {
-        console.log('auto login')
         this.$router.push('/');
       }
     }

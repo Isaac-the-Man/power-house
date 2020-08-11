@@ -150,8 +150,6 @@ export default {
       for (let [key, award] of Object.entries(this.awards)) {
         if (award.subject.mode === 'Student' && award.subject.data.key === this.student.key) {
           updatedAwards[key + '/subject/data/house'] = this.editStudentForm.house;
-          console.log(key);
-          console.log(award);
         }
       }
       return this.$store.state.database.db.ref('/awards').update(updatedAwards);

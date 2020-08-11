@@ -12,7 +12,6 @@
                            :to="'/houses/' + house.key">{{ house.name }}
           </b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item exact-active-class="active" exact to="/about">About</b-nav-item>
         <b-nav-item exact-active-class="active" exact to="/criteria">Criteria</b-nav-item>
         <b-nav-item exact-active-class="active" exact to="/records">Records</b-nav-item>
         <b-nav-item v-if="isAdmin" exact-active-class="active" exact to="/admin">Admin</b-nav-item>
