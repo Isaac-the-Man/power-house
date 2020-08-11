@@ -44,9 +44,6 @@
       </b-form-group>
       <b-button size="sm" block type="submit" variant="warning">Update</b-button>
     </b-form>
-    <pre>
-      {{ editCriterionForm }}
-    </pre>
   </b-card>
 </template>
 

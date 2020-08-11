@@ -61,13 +61,6 @@
           align="fill"
       ></b-pagination>
     </div>
-
-    <pre>
-            {{ filterField }}
-            {{ formattedFilterField }}
-            {{ awardsArray }}
-        </pre>
-
   </div>
 </template>
 

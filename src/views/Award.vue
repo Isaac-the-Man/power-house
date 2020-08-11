@@ -38,7 +38,6 @@
 
       </b-form>
     </b-card>
-    <pre>{{ form }}</pre>
   </b-overlay>
 
 </template>

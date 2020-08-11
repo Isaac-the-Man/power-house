@@ -111,9 +111,6 @@
     </div>
 
     <b-button @click="bulkCreateStudents" :disabled="!isParsed" variant="primary" block>Submit</b-button>
-
-    <pre> houseSelected: {{ houseSelected }}</pre>
-    <pre> merged: {{ merged }} </pre>
   </div>
 </template>
 

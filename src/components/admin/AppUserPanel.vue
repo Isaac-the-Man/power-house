@@ -55,8 +55,6 @@
       </div>
 
       <b-button block type="submit" variant="primary">Submit</b-button>
-      <pre>{{ userFields }}</pre>
-
     </b-form>
   </b-card>
 </template>

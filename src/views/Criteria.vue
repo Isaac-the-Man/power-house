@@ -24,7 +24,6 @@
     <div v-if="isAuthed" class="row">
       <div class="col">
         <AppNewCriterion></AppNewCriterion>
-        <pre>{{ this.$store.getters.scoredStudentsArray }}</pre>
       </div>
     </div>
   </b-overlay>

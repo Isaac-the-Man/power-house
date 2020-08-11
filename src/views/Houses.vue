@@ -67,19 +67,6 @@
       <h3 class="font-weight-lighter">Oops, no such house was found...</h3>
       <b-link to="/">Return</b-link>
     </div>
-    <div class="row">
-      <div v-if="isDataLoaded" class="col">
-        <pre>{{ awardsTab }}</pre>
-        <h3>house: {{ houseKey }}</h3>
-        <pre>{{ house }}</pre>
-        <h3>students</h3>
-        <pre>{{ inHouseStudentsArray }}</pre>
-        <h3>filtered</h3>
-        <pre>{{ filteredStudents }}</pre>
-        <h3>awards</h3>
-        <pre>{{ inHouseAwardsArray }}</pre>
-      </div>
-    </div>
   </b-overlay>
 </template>
 

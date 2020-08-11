@@ -67,8 +67,6 @@
       </b-form-group>
       <b-button size="sm" type="submit" variant="warning" block>Update</b-button>
     </b-form>
-    <pre>house changed? {{ houseChanged }}</pre>
-    <pre>{{ editStudentForm }}</pre>
   </b-card>
 </template>
 

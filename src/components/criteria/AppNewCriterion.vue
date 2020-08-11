@@ -37,9 +37,6 @@
       <b-button type="submit" block variant="primary">Save</b-button>
       <b-button type="reset" block variant="danger">Reset</b-button>
     </b-form>
-    <b-card>
-      <pre>{{ form }}</pre>
-    </b-card>
   </b-card>
 </template>
 
